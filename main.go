@@ -40,7 +40,11 @@ func initSqlDatabase() (*Restaurant, error) {
 	}, nil
 }
 
-func (c *Restaurant) insertRestaurant(name string, address string, stars int) (int, error) {
+func (c *Restaurant) insertRestaurant(
+	name string,
+	address string,
+	stars int,
+) (int, error) {
 	res, err := c.db.Exec("insert into restaurants(name, address, stars) values(?, ?, ?);", name, address, stars)
 	if err != nil {
 		return 0, err
