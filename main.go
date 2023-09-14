@@ -62,10 +62,13 @@ func main() {
 	// michelin_stars := 2
 	// fmt.Println(newRestaurant(restaurant_name, address, michelin_stars))
 
-	dbConnection, err := initSqlDatabase()
+	// establish db connection
+	db, err := initSqlDatabase()
 	if err != nil {
 		log.Fatalln("could create new Restaurant", err)
 	}
-	dbConnection.insertRestaurant(restaurant_name, address, michelin_stars)
+
+	// insert new restaurant
+	db.insertRestaurant(restaurant_name, address, michelin_stars)
 	fmt.Println(sqlite3.Version())
 }
