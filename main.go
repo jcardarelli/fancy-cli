@@ -5,13 +5,14 @@ import (
 	"fmt"
 	"log"
 
+	"github.com/jcardarelli/goproj/cmd"
 	"github.com/mattn/go-sqlite3"
 )
 
 const (
 	file   string = "goproj.db"
 	create string = `
-create table if not exists restaurants (
+CREATE TABLE IF NOT EXISTS restaurants (
 	id INTEGER NOT NULL PRIMARY KEY,
 	name TEXT,
 	address TEXT,
@@ -48,7 +49,10 @@ func (c *Restaurant) insertRestaurant(
 	address string,
 	stars int,
 ) (int, error) {
-	res, err := c.db.Exec("insert into restaurants(name, address, stars) values(?, ?, ?);", name, address, stars)
+	res, err := c.db.Exec(
+		"insert into restaurants(name, address, stars) values(?, ?, ?);",
+		name, address, stars,
+	)
 	if err != nil {
 		return 0, err
 	}
@@ -74,6 +78,8 @@ func main() {
 	if err != nil {
 		log.Fatalln("could create new Restaurant", err)
 	}
+
+	cmd.Execute()
 
 	// insert new restaurant
 	db.insertRestaurant(restaurant_name, address, michelin_stars)
