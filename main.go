@@ -28,10 +28,13 @@ type Restaurant struct {
 
 // initSqlDatabase: Setup database connection
 func initSqlDatabase() (*Restaurant, error) {
+	// Open connection to the sqlite db file
 	db, err := sql.Open("sqlite3", file)
 	if err != nil {
 		log.Fatalln("could not establish database connection", err)
 	}
+
+	// Ensure that we're able to connect to the sqlite database
 	if _, err := db.Exec(create); err != nil {
 		log.Fatalln("could not exec database query", err)
 	}
