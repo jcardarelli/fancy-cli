@@ -35,7 +35,7 @@ func initSqlDatabase() (*Restaurant, error) {
 		log.Fatalln("could not establish database connection", err)
 	}
 
-	// Ensure that we're able to connect to the sqlite database
+	// Validate connection to sqlite database
 	if _, err := db.Exec(create); err != nil {
 		log.Fatalln("could not exec database query", err)
 	}
@@ -68,6 +68,7 @@ func main() {
 	restaurant_name := "The French Laundry"
 	address := "Yountville, CA"
 	michelin_stars := 3
+
 	// restaurant_name := "Birdsong"
 	// address := "San Francisco, CA"
 	// michelin_stars := 2
