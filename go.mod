@@ -1,4 +1,4 @@
-module github.com/jcardarelli/goproj
+module github.com/jcardarelli/fancy-cli
 
 go 1.21.1
 

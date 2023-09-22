@@ -5,12 +5,12 @@ import (
 	"fmt"
 	"log"
 
-	"github.com/jcardarelli/goproj/cmd"
+	"github.com/jcardarelli/fancy-cli/cmd"
 	"github.com/mattn/go-sqlite3"
 )
 
 const (
-	file   string = "goproj.db"
+	file   string = "fancy-cli.db"
 	create string = `
 CREATE TABLE IF NOT EXISTS restaurants (
 	id INTEGER NOT NULL PRIMARY KEY,
