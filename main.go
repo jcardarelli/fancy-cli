@@ -69,24 +69,19 @@ func (c *Restaurant) insertRestaurant(
 }
 
 func main() {
-	restaurant_name := "The French Laundry"
-	address := "Yountville, CA"
-	michelin_stars := 3
-
-	// restaurant_name := "Birdsong"
-	// address := "San Francisco, CA"
-	// michelin_stars := 2
-	// fmt.Println(newRestaurant(restaurant_name, address, michelin_stars))
-
 	// establish db connection
 	db, err := initSqlDatabase()
 	if err != nil {
-		log.Fatalln("could create new Restaurant", err)
+		log.Fatalln("could create initialize database connection", err)
 	}
 
+	// Run cobra
 	cmd.Execute()
 
 	// insert new restaurant
+	restaurant_name := "Birdsong"
+	address := "San Francisco, CA"
+	michelin_stars := 2
 	db.insertRestaurant(restaurant_name, address, michelin_stars)
 	fmt.Println(sqlite3.Version())
 }

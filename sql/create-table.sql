@@ -6,7 +6,7 @@ CREATE TABLE IF NOT EXISTS restaurants (
 );
 
 -- sample data
-INSERT INTO
+INSERT OR IGNORE INTO
     restaurants(name, address, stars)
 VALUES
 (
