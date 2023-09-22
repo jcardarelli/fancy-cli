@@ -4,20 +4,15 @@ import (
 	"database/sql"
 	"fmt"
 	"log"
+	"os"
+	"path/filepath"
 
 	"github.com/jcardarelli/fancy-cli/cmd"
 	"github.com/mattn/go-sqlite3"
 )
 
 const (
-	file   string = "fancy-cli.db"
-	create string = `
-CREATE TABLE IF NOT EXISTS restaurants (
-	id INTEGER NOT NULL PRIMARY KEY,
-	name TEXT,
-	address TEXT,
-	stars INTEGER
-);`
+	sqliteDbFile string = "fancy-cli.db"
 )
 
 type Restaurant struct {
@@ -30,13 +25,22 @@ type Restaurant struct {
 // initSqlDatabase: Setup database connection
 func initSqlDatabase() (*Restaurant, error) {
 	// Open connection to the sqlite db file
-	db, err := sql.Open("sqlite3", file)
+	db, err := sql.Open("sqlite3", sqliteDbFile)
 	if err != nil {
 		log.Fatalln("could not establish database connection", err)
 	}
 
+	// Setup sql file to initialize the restaurants table
+	dbInitSqlFile := filepath.Join("sql", "create-table.sql")
+	c, err := os.ReadFile(dbInitSqlFile)
+	if err != nil {
+		log.Fatalln("unable to find setup sql file to initialize database tables", err)
+	}
+	// read the contents of the sql file to a string
+	sql := string(c)
+
 	// Validate connection to sqlite database
-	if _, err := db.Exec(create); err != nil {
+	if _, err := db.Exec(sql); err != nil {
 		log.Fatalln("could not exec database query", err)
 	}
 	return &Restaurant{
