@@ -1,8 +1,6 @@
 package cmd
 
 import (
-	"fmt"
-
 	db "github.com/jcardarelli/fancy-cli/database"
 	"github.com/spf13/cobra"
 )
@@ -20,7 +18,7 @@ var getCmd = &cobra.Command{
 
 		allFlag, _ := cmd.Flags().GetBool("all")
 		if !allFlag {
-			fmt.Println(db.GetRestaurant(restaurantName))
+			db.GetRestaurant(restaurantName)
 		} else {
 			db.GetAllRestaurants()
 		}

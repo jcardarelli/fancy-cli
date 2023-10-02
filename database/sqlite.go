@@ -67,13 +67,19 @@ func InsertRestaurant(name string, address string, stars int) (uint, error) {
 }
 
 // Get a restaurant from the restaurants table
-func GetRestaurant(restaurantName string) types.Restaurant {
+func GetRestaurant(restaurantName string) {
 	var id int
 	var name string
 	var address string
 	var stars int
 
 	sqlStatement := `SELECT * FROM restaurants WHERE name = $1;`
+
+	// setup table
+	t := table.NewWriter()
+	t.SetOutputMirror(os.Stdout)
+	t.SetStyle(table.StyleColoredBlueWhiteOnBlack)
+	t.AppendHeader(table.Row{"#", "Name", "Address", "Stars"})
 
 	row := db.QueryRow(sqlStatement, restaurantName)
 	switch err := row.Scan(&id, &name, &address, &stars); err {
@@ -84,7 +90,9 @@ func GetRestaurant(restaurantName string) types.Restaurant {
 		log.Fatalln("failed in default case", err)
 	}
 
-	return types.Restaurant{Id: id, Name: name, Address: address, Stars: stars}
+	t.AppendRow([]interface{}{id, name, address, stars})
+
+	t.Render()
 }
 
 // Get all restaurants from the restaurants table
