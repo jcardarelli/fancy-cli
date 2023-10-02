@@ -100,8 +100,8 @@ func GetAllRestaurants() {
 	// setup table
 	t := table.NewWriter()
 	t.SetOutputMirror(os.Stdout)
-	t.AppendHeader(table.Row{"#", "Name", "Address", "Stars"})
 	t.SetStyle(table.StyleColoredBlueWhiteOnBlack)
+	t.AppendHeader(table.Row{"#", "Name", "Address", "Stars"})
 
 	for rows.Next() {
 		restaurant := types.Restaurant{}
