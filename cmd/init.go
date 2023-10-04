@@ -1,8 +1,9 @@
 package cmd
 
 import (
-	"fmt"
+	"log"
 
+	db "github.com/jcardarelli/fancy-cli/database"
 	"github.com/spf13/cobra"
 )
 
@@ -17,20 +18,12 @@ Cobra is a CLI library for Go that empowers applications.
 This application is a tool to generate the needed files
 to quickly create a Cobra application.`,
 	Run: func(cmd *cobra.Command, args []string) {
-		fmt.Println("restaurant init called")
-		// initDb()
+		err := db.InitSqlDatabase()
+		if err != nil {
+			log.Fatalln(err)
+		}
 	},
 }
-
-// func initDb() *db.Env {
-// 	// Create a new instance containing a db connection pool
-// 	env := &db.Env{}
-// 	_, err := env.InitSqlDatabase("fancy-cli.db")
-// 	if err != nil {
-// 		log.Fatalln("could not open connection to database")
-// 	}
-// 	return env
-// }
 
 func init() {
 	restaurantCmd.AddCommand(initCmd)

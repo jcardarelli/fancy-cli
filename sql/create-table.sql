@@ -4,16 +4,3 @@ CREATE TABLE IF NOT EXISTS restaurants (
     address TEXT,
     stars INTEGER
 );
-
--- sample data
-INSERT OR IGNORE INTO
-    restaurants(name, address, stars)
-VALUES
-(
-        'The French Laundry',
-        '6640 Washington St, Yountville, CA 94599',
-        3
-    );
-
--- SELECT * FROM restaurants;
--- 1 | The French Laundry | 6640 Washington St, Yountville, CA 94599 | 3

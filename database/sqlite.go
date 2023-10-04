@@ -26,26 +26,34 @@ func OpenConnectionPool(sqliteDbFile string) error {
 }
 
 // Setup database connection
-func InitSqlDatabase() (*sql.DB, error) {
-	var err error
-	var cp *sql.DB
+func InitSqlDatabase() error {
+	// Attempt to open a connection to the sqlite file
+	connErr := OpenConnectionPool("fancy-cli.db")
+	if connErr != nil {
+		log.Fatalln("error connecting to sqlite", connErr)
+	}
+	log.Println("setup connection to sqlite")
 
 	// Setup sql file to initialize the restaurants table
 	dbInitSqlFile := filepath.Join("sql", "create-table.sql")
-	sqlFileContents, err := os.ReadFile(dbInitSqlFile)
-	if err != nil {
-		log.Fatalln("unable to find setup sql file to initialize database tables", err)
+	sqlFileContents, sqlFileErr := os.ReadFile(dbInitSqlFile)
+	if sqlFileErr != nil {
+		log.Fatalln("unable to find setup sql file to initialize restaurants table", sqlFileErr)
+	} else {
+		log.Println("found sql file at:", dbInitSqlFile)
 	}
-
-	// Read the contents of the sql file to a string
-	sql := string(sqlFileContents)
 
 	// Validate connection to sqlite database
-	if _, err := cp.Exec(sql); err != nil {
-		log.Fatalln("could not exec database query", err)
+	statement, connErr := db.Prepare(string(sqlFileContents))
+	if connErr != nil {
+		log.Fatalln("could not prepare CREATE TABLE query", connErr)
+	}
+	_, stErr := statement.Exec()
+	if stErr != nil {
+		log.Fatalln("unable to execute prepared sql statement", stErr)
 	}
 
-	return db, nil
+	return nil
 }
 
 // Insert a new restaurant into the restaurants table and return the id
