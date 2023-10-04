@@ -3,6 +3,7 @@ module github.com/jcardarelli/fancy-cli
 go 1.21.1
 
 require (
+	github.com/common-nighthawk/go-figure v0.0.0-20210622060536-734e95fb86be
 	github.com/jedib0t/go-pretty v4.3.0+incompatible
 	github.com/mattn/go-sqlite3 v1.14.17
 	github.com/spf13/cobra v1.7.0

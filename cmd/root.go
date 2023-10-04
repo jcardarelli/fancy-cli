@@ -1,8 +1,10 @@
 package cmd
 
 import (
+	"fmt"
 	"os"
 
+	figure "github.com/common-nighthawk/go-figure"
 	"github.com/spf13/cobra"
 )
 
@@ -19,6 +21,11 @@ var rootCmd = &cobra.Command{
 // Execute adds all child commands to the root command and sets flags appropriately.
 // This is called by main.main(). It only needs to happen once to the rootCmd.
 func Execute() {
+	// Print startup banner with go-figure
+	myFigure := figure.NewFigure("fancy", "ticks", true)
+	myFigure.Print()
+	fmt.Println()
+
 	err := rootCmd.Execute()
 	if err != nil {
 		os.Exit(1)
