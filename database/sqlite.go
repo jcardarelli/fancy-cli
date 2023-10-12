@@ -26,9 +26,9 @@ func OpenConnectionPool(sqliteDbFile string) error {
 }
 
 // Setup database connection
-func InitSqlDatabase() error {
+func InitSqlDatabase(dbFile string) error {
 	// Attempt to open a connection to the sqlite file
-	connErr := OpenConnectionPool("fancy-cli.db")
+	connErr := OpenConnectionPool(dbFile)
 	if connErr != nil {
 		log.Fatalln("error connecting to sqlite", connErr)
 	}
