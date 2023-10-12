@@ -4,7 +4,6 @@ import (
 	"database/sql"
 	"log"
 	"os"
-	"path/filepath"
 
 	"github.com/jcardarelli/fancy-cli/types"
 	"github.com/jedib0t/go-pretty/table"
@@ -26,7 +25,7 @@ func OpenConnectionPool(sqliteDbFile string) error {
 }
 
 // Setup database connection
-func InitSqlDatabase(dbFile string) error {
+func InitSqlDatabase(dbFile string, sqlInitStatements string) error {
 	// Attempt to open a connection to the sqlite file
 	connErr := OpenConnectionPool(dbFile)
 	if connErr != nil {
@@ -35,12 +34,11 @@ func InitSqlDatabase(dbFile string) error {
 	log.Println("setup connection to sqlite")
 
 	// Setup sql file to initialize the restaurants table
-	dbInitSqlFile := filepath.Join("sql", "create-table.sql")
-	sqlFileContents, sqlFileErr := os.ReadFile(dbInitSqlFile)
+	sqlFileContents, sqlFileErr := os.ReadFile(sqlInitStatements)
 	if sqlFileErr != nil {
 		log.Fatalln("unable to find setup sql file to initialize restaurants table", sqlFileErr)
 	} else {
-		log.Println("found sql file at:", dbInitSqlFile)
+		log.Println("found sql file at:", sqlInitStatements)
 	}
 
 	// Validate connection to sqlite database
