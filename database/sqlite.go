@@ -24,7 +24,7 @@ func OpenConnectionPool(sqliteDbFile string) error {
 	return db.Ping()
 }
 
-// Setup database connection
+// Setup and validate database connection
 func InitSqlDatabase(dbFile string, sqlInitStatements string) error {
 	// Attempt to open a connection to the sqlite file
 	connErr := OpenConnectionPool(dbFile)
@@ -97,7 +97,6 @@ func GetRestaurant(restaurantName string) {
 	}
 
 	t.AppendRow([]interface{}{id, name, address, stars})
-
 	t.Render()
 }
 
