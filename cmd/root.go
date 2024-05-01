@@ -3,6 +3,7 @@ package cmd
 import (
 	"fmt"
 	"os"
+	"path/filepath"
 
 	figure "github.com/common-nighthawk/go-figure"
 	"github.com/spf13/cobra"
@@ -10,7 +11,9 @@ import (
 
 // rootCmd represents the base command when called without any subcommands
 var rootCmd = &cobra.Command{
-	Use:   "fancy-cli",
+	// Use the name of the binary generated from `go build -o name` as the
+	// root cmd that cobra shows in the help menu
+	Use:   filepath.Base(os.Args[0]),
 	Short: "Restaurant database manager",
 	Long:  `Restaurant database`,
 	// Uncomment the following line if your bare application
