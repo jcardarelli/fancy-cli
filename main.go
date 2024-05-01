@@ -1,6 +1,7 @@
 package main
 
 import (
+	"fmt"
 	"log"
 
 	"github.com/jcardarelli/fancy-cli/cmd"
@@ -13,4 +14,5 @@ func main() {
 		log.Fatalln(err)
 	}
 	cmd.Execute()
+	fmt.Println()
 }
