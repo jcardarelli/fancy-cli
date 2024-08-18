@@ -9,6 +9,16 @@ import (
 	"github.com/spf13/cobra"
 )
 
+// Print startup banner with go-figure if command is not completion
+func banner() {
+	if len(os.Args) > 1 && os.Args[1] != "completion" || len(os.Args) == 1 {
+		fmt.Println()
+		banner := figure.NewFigure("fancy", "ticks", true)
+		banner.Print()
+		fmt.Println()
+	}
+}
+
 // rootCmd represents the base command when called without any subcommands
 var rootCmd = &cobra.Command{
 	// Use the name of the binary generated from `go build -o name` as the
@@ -16,20 +26,20 @@ var rootCmd = &cobra.Command{
 	Use:   filepath.Base(os.Args[0]),
 	Short: "Restaurant database manager",
 	Long:  `Restaurant database`,
-	// Uncomment the following line if your bare application
-	// has an action associated with it:
-	// Run: func(cmd *cobra.Command, args []string) { },
+}
+
+func RootCmd(input string) *cobra.Command {
+	return &cobra.Command{
+		Use:   filepath.Base(os.Args[0]),
+		Short: "Restaurant database manager",
+		Long:  `Restaurant database`,
+	}
 }
 
 // Execute adds all child commands to the root command and sets flags appropriately.
 // This is called by main.main(). It only needs to happen once to the rootCmd.
 func Execute() {
-	// Print startup banner with go-figure
-	fmt.Println()
-	banner := figure.NewFigure("fancy", "ticks", true)
-	banner.Print()
-	fmt.Println()
-
+	banner()
 	err := rootCmd.Execute()
 	if err != nil {
 		os.Exit(1)
