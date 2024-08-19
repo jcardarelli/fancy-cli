@@ -15,6 +15,14 @@ Features:
 ## Data
 All data is stored in the file fancy-cli.db
 
+## Testing
+* CI on GitHub Actions:
+  * Run golangci-lint
+  * Build docker image
+* Run GitHub Actions locally with `$ make local-github-actions`
+  * This requires `act`
+  * Install with `$ brew install act` on MacOS
+
 ## Development
 1. `$ python3 -m pip install pre-commit`
 1. `$ pre-commit`

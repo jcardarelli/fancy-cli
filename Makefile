@@ -15,3 +15,6 @@ vet: fmt
 build: vet
 	go build -o fancy
 .PHONY:build
+
+local-github-actions:
+	act --container-architecture linux/amd64 --remote-name upstream
