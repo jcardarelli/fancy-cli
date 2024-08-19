@@ -1,4 +1,4 @@
-FROM golang:1.21 AS build
+FROM arm64v8/golang:1.21 AS build
 WORKDIR /app
 RUN mkdir cmd database types vendor
 COPY cmd/ ./cmd/
