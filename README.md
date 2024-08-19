@@ -10,9 +10,10 @@ Features:
 * Delete restaurant
 
 
-
 ## Installation
 1. `$ ./install.sh`
+## Data
+All data is stored in the file fancy-cli.db
 
 ## Development
 1. `$ python3 -m pip install pre-commit`
